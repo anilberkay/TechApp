@@ -1,0 +1,57 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="card card-body">
+    <form asp-action="Index" method="get">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-11">
+                    <select name="category" class="form-select" asp-items="@(new SelectList(Model.Categories, "CategoryId", "CategoryName",Model.SelectedCategory))">
+                        <option value="0">All Categories</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>   
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        @*! Farklı bir yol Burada getProperties kullanılarak döndürüldü değerler. *@
+        @foreach (var values in typeof(Product).GetProperties())
+        {
+            <th>@values.Name</th>
+        }
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var prd in Model.Products)
+        {
+            <tr>
+                <td>@prd.ProductId</td>
+                <td><img width="100px"  class="img-fluid" src="@Url.Content(@prd.ProductImage)" alt="@prd.ProductName"></td>
+                <td>@prd.ProductName</td>
+                <td>@prd.ProductPrice</td>
+                
+                <td>@prd.IsActive</td>
+                <td>@(Repository.Categories.FirstOrDefault(c => c.CategoryId == prd.CategoryId)?.CategoryName)</td>
+                <td>
+                    <a class="btn btn-sm btn-primary">Edit</a>
+                    <a  class="btn btn-sm btn-danger">Delete</a>
+                </td>
+                           
+                     
+                                 
+                
+            </tr>
+        }
+    </tbody>
+</table>
