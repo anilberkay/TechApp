@@ -44,8 +44,8 @@
                 <td>@prd.IsActive</td>
                 <td>@(Repository.Categories.FirstOrDefault(c => c.CategoryId == prd.CategoryId)?.CategoryName)</td>
                 <td>
-                    <a class="btn btn-sm btn-primary">Edit</a>
-                    <a  class="btn btn-sm btn-danger">Delete</a>
+                    <a class="btn btn-sm btn-primary" asp-controller="Home" asp-action="Edit" asp-route-id="@prd.ProductId" >Edit</a>
+                    <a  class="btn btn-sm btn-danger"  asp-controller="Home" asp-action="Delete" asp-route-id="@prd.ProductId">Delete</a>
                 </td>
                            
                      
